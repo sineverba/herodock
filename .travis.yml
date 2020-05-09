@@ -1,12 +1,23 @@
 os: linux
+
 dist: bionic
-language: shell
+
+language: php
+
+matrix:
+  # Fast finish allows to set the build as "finished" even if the "allow_failures" matrix elements are not finished yet.
+  fast_finish: true
+  include:
+    #- php: 7.2
+    #- php: 7.3
+    - php: 7.4
 
 env:
   HEROKU_APP_NAME: herodock
   HEROKU_REGISTRY_IMAGE: registry.heroku.com/herodock/web
 
 before_install:
+  - echo $PHP_VERSION
   - chmod +x ./.deploy/scripts/build.sh
   - chmod +x ./.deploy/scripts/test.sh
   - chmod +x ./.deploy/scripts/deploy.sh
@@ -14,9 +25,10 @@ before_install:
 
 install:
   - ./.deploy/scripts/build.sh
+  - composer install
 
 script:
-  - chmod +x ./.deploy/scripts/test.sh
+  - vendor/bin/phpunit
 
 after_success:
   - |

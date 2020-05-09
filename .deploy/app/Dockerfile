@@ -11,7 +11,23 @@ COPY . /usr/src/app
 
 WORKDIR /usr/src/app
 
+RUN composer install --no-dev
+
+##########################
+##       TEST           ##
+##########################
+FROM php:7.4-cli-alpine as test
+
+RUN mkdir -p /usr/src/app
+
+COPY --from=builder /usr/bin/composer /usr/bin/composer
+COPY --from=builder /usr/src/app /usr/src/app
+
+WORKDIR /usr/src/app
+
 RUN composer install
+
+RUN vendor/bin/phpunit
 
 ##########################
 ##       DEPLOY         ##
