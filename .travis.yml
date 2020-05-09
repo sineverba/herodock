@@ -14,9 +14,10 @@ before_install:
 
 install:
   - ./.deploy/scripts/build.sh
+  - composer install
 
 script:
-  - chmod +x ./.deploy/scripts/test.sh
+  - vendor/bin/phpunit
 
 after_success:
   - |
