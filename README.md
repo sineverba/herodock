@@ -10,8 +10,11 @@ Test on Heroku with Travis auto deploy
 
 ## How to build for test
 
-Add to Heroku following environment variables:
+Add to Heroku __at least__ following environment variables:
 
+| VARIABLE | VALUE |
+| -------- | ----- |
+| APP_KEY  | Create it with `php artisan key:generate` |
 
 
 ```shell
