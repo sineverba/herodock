@@ -1,0 +1,29 @@
+os: linux
+dist: bionic
+language: shell
+
+env:
+  HEROKU_APP_NAME: herodock
+  HEROKU_REGISTRY_IMAGE: registry.heroku.com/herodock/web
+
+before_install:
+  - chmod +x ./.deploy/scripts/build.sh
+  - chmod +x ./.deploy/scripts/test.sh
+  - chmod +x ./.deploy/scripts/deploy.sh
+  - chmod +x ./.deploy/scripts/publish_env.sh
+
+install:
+  - ./.deploy/scripts/build.sh
+
+script:
+  - chmod +x ./.deploy/scripts/test.sh
+
+after_success:
+  - |
+    if [[ $TRAVIS_PULL_REQUEST = false ]]; then
+      ./.deploy/scripts/deploy.sh
+    fi
+  - |
+    if [[ $TRAVIS_TAG != "" ]]; then
+      ./.deploy/scripts/publish_env.sh
+    fi
