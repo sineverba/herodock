@@ -25,10 +25,11 @@ before_install:
 
 install:
   - ./.deploy/scripts/build.sh
-  - composer install
+  #- composer install
 
 script:
-  - vendor/bin/phpunit
+  #- vendor/bin/phpunit
+  - echo "no test";
 
 after_success:
   - |
