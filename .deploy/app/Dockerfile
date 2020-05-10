@@ -36,8 +36,8 @@ FROM php:7-apache as deploy
 
 RUN docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable mysqli pdo pdo_mysql
 
-COPY .docker/deploy/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
-COPY .docker/deploy/scripts/start-apache /usr/local/bin
+COPY ./deploy/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY ./deploy/scripts/start-apache /usr/local/bin
 RUN a2enmod rewrite
 
 # Copy application source
