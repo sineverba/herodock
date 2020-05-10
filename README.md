@@ -19,8 +19,9 @@ Add to Heroku __at least__ following environment variables:
 
 ```shell
 $ docker build --tag herodock --file ./.deploy/app/Dockerfile "."
-$ docker run -d --name herodock -e "PORT=9876" -p 9876:9876 herodock
+$ docker run -d --name herodock -e APP_KEY=base64:x2SHH01+2R+vwv09YcrvXqdFJ+bbqgT9gW4njcYLjDE= -e "PORT=9876" -p 9876:9876 herodock
 $ docker exec -it herodock php -i | grep "PHP Version => 7.4.5"
+$ docker container stop herodock
 $ docker container rm herodock
 $ docker image rm herodock
 ```
