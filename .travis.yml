@@ -4,7 +4,7 @@ language: shell
 
 env:
   HEROKU_APP_NAME: herodock
-  HEROKU_REGISTRY_IMAGE: registry.heroku.com/herodock/web
+  HEROKU_REGISTRY_IMAGE: registry.heroku.com/$HEROKU_APP_NAME/web
 
 before_install:
   - chmod +x ./.deploy/scripts/build.sh
