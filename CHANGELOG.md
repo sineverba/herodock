@@ -1,4 +1,8 @@
-# 0.3.0
+# 0.3.1
++ Add `Microbadger`
++ Fix docker tag
+
+## 0.3.0
 + Add Docker push with tagging
 
 ## 0.2.0
