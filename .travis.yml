@@ -14,13 +14,13 @@ matrix:
 
 env:
   HEROKU_APP_NAME: herodock
-  HEROKU_REGISTRY_IMAGE: registry.heroku.com/herodock/web
+  HEROKU_REGISTRY_IMAGE: registry.heroku.com/$HEROKU_APP_NAME/web
   DOCKER_USERNAME: sineverba
 
 before_install:
   - echo $TRAVIS_PHP_VERSION
   - |
-    if [[ ($TRAVIS_BRANCH == "master" || $TRAVIS_TAG != "") && $TRAVIS_PHP_VERSION == "7.4" ]]; then
+    if [[ ($TRAVIS_BRANCH == "master" || $TRAVIS_BRANCH == "develop" || $TRAVIS_TAG != "") && $TRAVIS_PHP_VERSION == "7.4" ]]; then
       chmod +x ./.deploy/scripts/build.sh
       chmod +x ./.deploy/scripts/build-docker.sh
       chmod +x ./.deploy/scripts/test.sh
@@ -31,14 +31,15 @@ before_install:
 
 install:
   - |
-    if [[ ($TRAVIS_BRANCH == "master" || $TRAVIS_TAG != "") && $TRAVIS_PHP_VERSION == "7.4" ]]; then
+    if [[ ($TRAVIS_BRANCH == "master" || $TRAVIS_BRANCH == "develop" || $TRAVIS_TAG != "") && $TRAVIS_PHP_VERSION == "7.4" ]]; then
       ./.deploy/scripts/build.sh
       ./.deploy/scripts/test.sh
     fi
-  - composer install
+  #- composer install
 
 script:
-  - vendor/bin/phpunit
+  #- vendor/bin/phpunit
+  - echo "No test"
 
 after_success:
   - |

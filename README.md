@@ -11,14 +11,7 @@ Test on Heroku with Travis auto deploy
 
 ## How to build for test
 
-Add to Heroku __at least__ following environment variables:
-
-| VARIABLE | VALUE |
-| -------- | ----- |
-| APP_KEY  | Create it with `php artisan key:generate` |
-
-
-```shell
+``` shell
 $ docker build --tag herodock --file ./.deploy/app/Dockerfile "."
 $ docker run -d --name herodock -e APP_KEY=base64:x2SHH01+2R+vwv09YcrvXqdFJ+bbqgT9gW4njcYLjDE= -e "PORT=9876" -p 9876:9876 herodock
 $ docker exec -it herodock php -i | grep "PHP Version => 7.4.5"
