@@ -15,6 +15,7 @@ matrix:
 env:
   HEROKU_APP_NAME: herodock
   HEROKU_REGISTRY_IMAGE: registry.heroku.com/herodock/web
+  DOCKER_USERNAME: sineverba
 
 before_install:
   - echo $PHP_VERSION
@@ -31,6 +32,10 @@ script:
   - vendor/bin/phpunit
 
 after_success:
+  - docker build --tag ${HEROKU_APP_NAME} --file ./.deploy/app/Dockerfile ".";
+  - echo "$DOCKER_API_KEY" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker images
+  - docker push $DOCKER_USERNAME/$HEROKU_APP_NAME
   - |
     if [[ $TRAVIS_PULL_REQUEST = false ]]; then
       ./.deploy/scripts/deploy.sh
@@ -38,4 +43,5 @@ after_success:
   - |
     if [[ $TRAVIS_TAG != "" ]]; then
       ./.deploy/scripts/publish_env.sh
+      docker push $DOCKER_USERNAME/$HEROKU_APP_NAME:$TRAVIS_TAG
     fi
