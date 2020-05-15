@@ -2,8 +2,11 @@
 
 VSC_REF=$(git rev-parse --short HEAD)
 
-#echo VCS_REF
-#echo $VCS_REF
+echo "A=>"
+echo VCS_REF
+echo "B=>"
+echo $VCS_REF
+echo "C=>"
 echo $$VCS_REF
 
 #docker run -d --name herodock -e "PORT=9876" -p 9876:9876 ${HEROKU_REGISTRY_IMAGE};
