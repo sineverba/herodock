@@ -16,11 +16,9 @@ env:
   HEROKU_APP_NAME: herodock
   HEROKU_REGISTRY_IMAGE: registry.heroku.com/{HEROKU_APP_NAME}/web
   DOCKER_USERNAME: sineverba
-  GIT_REV_PARSE: `git rev-parse --short HEAD`
 
 before_install:
   - echo $TRAVIS_PHP_VERSION
-  - echo $GIT_REV_PARSE
   - |
     if [[ ($TRAVIS_BRANCH == "master" || $TRAVIS_BRANCH == "develop" || $TRAVIS_TAG != "") && $TRAVIS_PHP_VERSION == "7.4" ]]; then
       chmod +x ./.deploy/scripts/build.sh
