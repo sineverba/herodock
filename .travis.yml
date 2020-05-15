@@ -15,16 +15,26 @@ matrix:
 env:
   HEROKU_APP_NAME: herodock
   HEROKU_REGISTRY_IMAGE: registry.heroku.com/herodock/web
+  DOCKER_USERNAME: sineverba
 
 before_install:
-  - echo $PHP_VERSION
-  - chmod +x ./.deploy/scripts/build.sh
-  - chmod +x ./.deploy/scripts/test.sh
-  - chmod +x ./.deploy/scripts/deploy.sh
-  - chmod +x ./.deploy/scripts/publish_env.sh
+  - echo $TRAVIS_PHP_VERSION
+  - |
+    if [[ ($TRAVIS_BRANCH == "master" || $TRAVIS_TAG != "") && $TRAVIS_PHP_VERSION == "7.4" ]]; then
+      chmod +x ./.deploy/scripts/build.sh
+      chmod +x ./.deploy/scripts/build-docker.sh
+      chmod +x ./.deploy/scripts/test.sh
+      chmod +x ./.deploy/scripts/deploy.sh
+      chmod +x ./.deploy/scripts/deploy-docker.sh
+      chmod +x ./.deploy/scripts/publish_env.sh
+    fi
 
 install:
-  - ./.deploy/scripts/build.sh
+  - |
+    if [[ ($TRAVIS_BRANCH == "master" || $TRAVIS_TAG != "") && $TRAVIS_PHP_VERSION == "7.4" ]]; then
+      ./.deploy/scripts/build.sh
+      ./.deploy/scripts/test.sh
+    fi
   - composer install
 
 script:
@@ -32,10 +42,9 @@ script:
 
 after_success:
   - |
-    if [[ $TRAVIS_PULL_REQUEST = false ]]; then
+    if [[ $TRAVIS_TAG != "" && $TRAVIS_PHP_VERSION == "7.4" ]]; then
       ./.deploy/scripts/deploy.sh
-    fi
-  - |
-    if [[ $TRAVIS_TAG != "" ]]; then
       ./.deploy/scripts/publish_env.sh
+      ./.deploy/scripts/build-docker.sh
+      ./.deploy/scripts/deploy-docker.sh
     fi
