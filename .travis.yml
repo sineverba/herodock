@@ -18,30 +18,34 @@ env:
   DOCKER_USERNAME: sineverba
 
 before_install:
-  - echo $PHP_VERSION
-  - chmod +x ./.deploy/scripts/build.sh
-  - chmod +x ./.deploy/scripts/test.sh
-  - chmod +x ./.deploy/scripts/deploy.sh
-  - chmod +x ./.deploy/scripts/publish_env.sh
+  - echo $TRAVIS_PHP_VERSION
+  - |
+    if [[ ($TRAVIS_BRANCH == "master" || $TRAVIS_TAG != "") && $TRAVIS_PHP_VERSION == "7.4" ]]; then
+      chmod +x ./.deploy/scripts/build.sh
+      chmod +x ./.deploy/scripts/test.sh
+      chmod +x ./.deploy/scripts/deploy.sh
+      chmod +x ./.deploy/scripts/publish_env.sh
+    fi
 
 install:
-  - ./.deploy/scripts/build.sh
+  - |
+    if [[ ($TRAVIS_BRANCH == "master" || $TRAVIS_TAG != "") && $TRAVIS_PHP_VERSION == "7.4" ]]; then
+      ./.deploy/scripts/build.sh
+      ./.deploy/scripts/test.sh
+    fi
   - composer install
 
 script:
   - vendor/bin/phpunit
 
 after_success:
-  - docker build --tag ${HEROKU_APP_NAME} --file ./.deploy/app/Dockerfile ".";
+  - docker build --tag $DOCKER_USERNAME/$HEROKU_APP_NAME --file ./.deploy/app/Dockerfile ".";
   - echo "$DOCKER_API_KEY" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker images
   - docker push $DOCKER_USERNAME/$HEROKU_APP_NAME
   - |
-    if [[ $TRAVIS_PULL_REQUEST = false ]]; then
+    if [[ $TRAVIS_TAG != "" && $TRAVIS_PHP_VERSION == "7.4" ]]; then
       ./.deploy/scripts/deploy.sh
-    fi
-  - |
-    if [[ $TRAVIS_TAG != "" ]]; then
       ./.deploy/scripts/publish_env.sh
       docker push $DOCKER_USERNAME/$HEROKU_APP_NAME:$TRAVIS_TAG
     fi
