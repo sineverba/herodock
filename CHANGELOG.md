@@ -1,4 +1,7 @@
-# 0.3.1
+# Next version
++ Archived .laravel
+
+## 0.3.1
 + Add `Microbadger`
 + Fix docker tag
 

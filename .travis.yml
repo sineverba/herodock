@@ -14,7 +14,7 @@ matrix:
 
 env:
   HEROKU_APP_NAME: herodock
-  HEROKU_REGISTRY_IMAGE: registry.heroku.com/herodock/web
+  HEROKU_REGISTRY_IMAGE: registry.heroku.com/$HEROKU_APP_NAME/web
   DOCKER_USERNAME: sineverba
 
 before_install:
@@ -35,10 +35,10 @@ install:
       ./.deploy/scripts/build.sh
       ./.deploy/scripts/test.sh
     fi
-  - composer install
+  #- composer install
 
 script:
-  - vendor/bin/phpunit
+  #- vendor/bin/phpunit
 
 after_success:
   - |

@@ -11,7 +11,7 @@ COPY . /usr/src/app
 
 WORKDIR /usr/src/app
 
-RUN composer install --no-dev
+#RUN composer install --no-dev
 
 ##########################
 ##       TEST           ##
@@ -25,9 +25,9 @@ COPY --from=builder /usr/src/app /usr/src/app
 
 WORKDIR /usr/src/app
 
-RUN composer install
+#RUN composer install
 
-RUN vendor/bin/phpunit
+#RUN vendor/bin/phpunit
 
 ##########################
 ##       DEPLOY         ##

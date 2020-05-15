@@ -11,6 +11,14 @@ Test on Heroku with Travis auto deploy
 
 ## How to build for test
 
+### A base application
+
+Move all files from `.basic-app` to root
+
+### A Laravel Application
+
+Move all files from `.laravel` to root
+
 Add to Heroku __at least__ following environment variables:
 
 | VARIABLE | VALUE |
