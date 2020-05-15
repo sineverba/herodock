@@ -1,6 +1,7 @@
 #!/bin/sh
 
-VSC_REF=$(git rev-parse --short HEAD)
+#VSC_REF=$(git rev-parse --short HEAD)
+export VCS_REF := $(shell git rev-parse --short HEAD)
 
 echo "A=>"
 echo VCS_REF
