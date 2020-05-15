@@ -6,6 +6,7 @@ Test on Heroku with Travis auto deploy
 | CI / CD   | Status |
 | --------- | ------ |
 | Travis CI | [![Build Status](https://travis-ci.com/sineverba/herodock.svg?branch=master)](https://travis-ci.com/sineverba/herodock) |
+| Docker    | [![](https://images.microbadger.com/badges/image/sineverba/herodock.svg)](https://microbadger.com/images/sineverba/herodock "Get your own image badge on microbadger.com")
 
 
 ## How to build for test
