@@ -20,7 +20,7 @@ env:
 before_install:
   - echo $TRAVIS_PHP_VERSION
   - git rev-parse --short HEAD
-  - REV_PARSE=git rev-parse --short HEAD
+  - env REV_PARSE=git rev-parse --short HEAD
   - echo $REV_PARSE
   - |
     if [[ ($TRAVIS_BRANCH == "master" || $TRAVIS_BRANCH == "develop" || $TRAVIS_TAG != "") && $TRAVIS_PHP_VERSION == "7.4" ]]; then
