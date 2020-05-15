@@ -1,7 +1,7 @@
 Heroku test
 ===========
 
-Test on Heroku with Travis auto deploy
+Test on Heroku / Docker Hub with Travis auto deploy
 
 | CI / CD   | Status |
 | --------- | ------ |

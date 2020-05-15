@@ -1,4 +1,7 @@
-# 0.3.1
+# Next version
++ Add `ref head tag` for Microbadge
+
+## 0.3.1
 + Add `Microbadger`
 + Fix docker tag
 
