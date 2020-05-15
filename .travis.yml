@@ -20,7 +20,6 @@ env:
 before_install:
   - echo $TRAVIS_PHP_VERSION
   - export VCS_REF=$(git rev-parse --short HEAD)
-  - echo $VCS_REF
   - |
     if [[ ($TRAVIS_BRANCH == "master" || $TRAVIS_BRANCH == "develop" || $TRAVIS_TAG != "") && $TRAVIS_PHP_VERSION == "7.4" ]]; then
       chmod +x ./.deploy/scripts/build.sh
