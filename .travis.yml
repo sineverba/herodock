@@ -43,9 +43,16 @@ script:
 
 after_success:
   - |
+    if [[ ($TRAVIS_BRANCH == "master" || $TRAVIS_BRANCH == "develop" || $TRAVIS_TAG != "") && $TRAVIS_PHP_VERSION == "7.4" ]]; then
+      export VCS_REF=$(git rev-parse --short HEAD)
+      ./.deploy/scripts/build-docker.sh
+      ./.deploy/scripts/test-docker.sh
+    fi
+  - |
     if [[ $TRAVIS_TAG != "" && $TRAVIS_PHP_VERSION == "7.4" ]]; then
       ./.deploy/scripts/deploy.sh
       ./.deploy/scripts/publish_env.sh
       ./.deploy/scripts/build-docker.sh
+      ./.deploy/scripts/test-docker.sh
       ./.deploy/scripts/deploy-docker.sh
     fi
