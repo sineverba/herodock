@@ -11,7 +11,7 @@ COPY . /usr/src/app
 
 WORKDIR /usr/src/app
 
-RUN composer install --no-dev
+#RUN composer install --no-dev
 
 ##########################
 ##       TEST           ##
@@ -25,9 +25,9 @@ COPY --from=builder /usr/src/app /usr/src/app
 
 WORKDIR /usr/src/app
 
-RUN composer install
+#RUN composer install
 
-RUN vendor/bin/phpunit
+#RUN vendor/bin/phpunit
 
 ##########################
 ##       DEPLOY         ##
@@ -37,9 +37,10 @@ FROM php:7-apache as deploy
 ARG VCS_REF
 
 LABEL org.label-schema.vcs-ref=$VCS_REF \
-      org.label-schema.vcs-url="e.g. https://github.com/sineverba/herodock"
+      org.label-schema.vcs-url="https://github.com/sineverba/herodock"
 
-RUN docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable mysqli pdo pdo_mysql
+
+#RUN docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable mysqli pdo pdo_mysql
 
 COPY .deploy/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY .deploy/scripts/start-apache /usr/local/bin

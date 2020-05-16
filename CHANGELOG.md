@@ -1,4 +1,7 @@
-# 0.3.1
+# 0.4.0
++ Remove Laravel
+
+## 0.3.1
 + Add `Microbadger`
 + Fix docker tag
 
