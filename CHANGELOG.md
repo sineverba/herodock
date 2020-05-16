@@ -1,4 +1,7 @@
-# 0.4.1
+# Next version
++ Move test under `script` section
+
+## 0.4.1
 + Clean Travis
 + Fix Travis doesn't stop at failed test
 
