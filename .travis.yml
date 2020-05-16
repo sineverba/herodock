@@ -33,6 +33,9 @@ install:
   - |
     if [[ ($TRAVIS_BRANCH == "master" || $TRAVIS_TAG != "") && $TRAVIS_PHP_VERSION == "7.4" ]]; then
       ./.deploy/scripts/build.sh
+    fi
+  - |
+    if [[ ($TRAVIS_BRANCH == "master" || $TRAVIS_TAG != "") && $TRAVIS_PHP_VERSION == "7.4" ]]; then
       ./.deploy/scripts/test.sh
     fi
   #- composer install

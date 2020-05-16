@@ -1,5 +1,6 @@
-# Next version
+# 0.4.1
 + Clean Travis
++ Fix Travis doesn't stop at failed test
 
 ## 0.4.0
 + Remove Laravel
