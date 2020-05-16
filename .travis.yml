@@ -23,7 +23,6 @@ before_install:
   - |
     if [[ ($TRAVIS_BRANCH == "master" || $TRAVIS_BRANCH == "develop" || $TRAVIS_TAG != "") && $TRAVIS_PHP_VERSION == "7.4" ]]; then
       chmod +x ./.deploy/scripts/build.sh
-      chmod +x ./.deploy/scripts/build-docker.sh
       chmod +x ./.deploy/scripts/test.sh
       chmod +x ./.deploy/scripts/deploy.sh
       chmod +x ./.deploy/scripts/deploy-docker.sh
@@ -47,6 +46,5 @@ after_success:
     if [[ $TRAVIS_TAG != "" && $TRAVIS_PHP_VERSION == "7.4" ]]; then
       ./.deploy/scripts/deploy.sh
       ./.deploy/scripts/publish_env.sh
-      ./.deploy/scripts/build-docker.sh
       ./.deploy/scripts/deploy-docker.sh
     fi
