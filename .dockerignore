@@ -17,3 +17,4 @@ yarn-error.log
 .travis.yaml
 CHANGELOG.md
 README.md
+.idea/

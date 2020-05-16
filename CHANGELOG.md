@@ -1,4 +1,8 @@
-# 0.4.1
+# 0.5.0
++ Move test under `script` section
++ Add Composer
+
+## 0.4.1
 + Clean Travis
 + Fix Travis doesn't stop at failed test
 
