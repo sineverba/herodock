@@ -35,9 +35,11 @@ WORKDIR /usr/src/app
 FROM php:7-apache as deploy
 
 ARG VCS_REF
+ARG BUILD_DATE
 
 LABEL org.label-schema.vcs-ref=$VCS_REF \
-      org.label-schema.vcs-url="https://github.com/sineverba/herodock"
+      org.label-schema.vcs-url="https://github.com/sineverba/herodock" \
+      org.label-schema.build-date=$BUILD_DATE
 
 
 #RUN docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable mysqli pdo pdo_mysql
