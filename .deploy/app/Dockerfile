@@ -37,7 +37,8 @@ FROM php:7-apache as deploy
 ARG VCS_REF
 
 LABEL org.label-schema.vcs-ref=$VCS_REF \
-      org.label-schema.vcs-url="e.g. https://github.com/sineverba/herodock"
+      org.label-schema.vcs-url="https://github.com/sineverba/herodock"
+
 
 #RUN docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable mysqli pdo pdo_mysql
 
