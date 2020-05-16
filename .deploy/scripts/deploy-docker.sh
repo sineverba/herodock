@@ -1,5 +1,9 @@
 #!/bin/sh
 
+docker tag ${HEROKU_REGISTRY_IMAGE} ${DOCKER_USERNAME}/${HEROKU_APP_NAME}:latest
+docker tag ${HEROKU_REGISTRY_IMAGE} ${DOCKER_USERNAME}/${HEROKU_APP_NAME}:${TRAVIS_TAG}
+
 echo "$DOCKER_API_KEY" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+docker push $DOCKER_USERNAME/$HEROKU_APP_NAME:latest;
 docker push $DOCKER_USERNAME/$HEROKU_APP_NAME:$TRAVIS_TAG;
-#docker push $DOCKER_USERNAME/$HEROKU_APP_NAME:latest;
