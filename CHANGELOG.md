@@ -1,4 +1,7 @@
-# 0.5.0
+# Next version
++ Add Microbadger webhook
+
+## 0.5.0
 + Move test under `script` section
 + Add Composer
 
