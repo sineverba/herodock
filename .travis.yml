@@ -4,7 +4,7 @@ dist: bionic
 
 language: php
 
-matrix:
+jobs:
   # Fast finish allows to set the build as "finished" even if the "allow_failures" matrix elements are not finished yet.
   fast_finish: true
   include:
