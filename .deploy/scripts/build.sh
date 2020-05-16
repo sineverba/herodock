@@ -8,5 +8,5 @@ docker images
 # Tag also for docker
 #docker tag ${HEROKU_REGISTRY_IMAGE} "$DOCKER_USERNAME/$HEROKU_APP_NAME":latest
 #docker tag ${HEROKU_REGISTRY_IMAGE} "$DOCKER_USERNAME/$HEROKU_APP_NAME":"$TRAVIS_TAG"
-docker tag ${HEROKU_REGISTRY_IMAGE} "sineverba/herodock:a1b2c3"
+docker tag ${HEROKU_REGISTRY_IMAGE} ${DOCKER_USERNAME}/${HEROKU_APP_NAME}:latest
 docker images
