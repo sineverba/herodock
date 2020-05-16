@@ -27,6 +27,7 @@ before_install:
       chmod +x ./.deploy/scripts/deploy.sh
       chmod +x ./.deploy/scripts/deploy-docker.sh
       chmod +x ./.deploy/scripts/publish_env.sh
+      chmod +x ./.deploy/scripts/microbadger-webhook.sh
     fi
 
 install:
@@ -49,4 +50,5 @@ after_success:
       ./.deploy/scripts/deploy.sh
       ./.deploy/scripts/publish_env.sh
       ./.deploy/scripts/deploy-docker.sh
+      ./.deploy/scripts/microbadger-webhook.sh
     fi
