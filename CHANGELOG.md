@@ -1,4 +1,7 @@
-# 0.4.0
+# Next version
++ Clean Travis
+
+## 0.4.0
 + Remove Laravel
 
 ## 0.3.1
