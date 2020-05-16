@@ -34,15 +34,14 @@ install:
     if [[ ($TRAVIS_BRANCH == "master" || $TRAVIS_TAG != "") && $TRAVIS_PHP_VERSION == "7.4" ]]; then
       ./.deploy/scripts/build.sh
     fi
-  #- composer install
+  - composer install
 
 script:
   - |
     if [[ ($TRAVIS_BRANCH == "master" || $TRAVIS_TAG != "") && $TRAVIS_PHP_VERSION == "7.4" ]]; then
       ./.deploy/scripts/test.sh
     fi
-  #- vendor/bin/phpunit
-  - echo "No test"
+  - vendor/bin/phpunit
 
 after_success:
   - |
