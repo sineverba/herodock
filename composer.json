@@ -1,0 +1,15 @@
+{
+    "name": "sineverba/herodock",
+    "description": "Demo project Docker - Heroku",
+    "type": "project",
+    "license": "MIT",
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^9.1"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    }
+}
