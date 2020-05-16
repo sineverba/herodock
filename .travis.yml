@@ -21,7 +21,7 @@ before_install:
   - echo $TRAVIS_PHP_VERSION
   - export VCS_REF=$(git rev-parse --short HEAD)
   - |
-    if [[ ($TRAVIS_BRANCH == "master" || $TRAVIS_BRANCH == "develop" || $TRAVIS_TAG != "") && $TRAVIS_PHP_VERSION == "7.4" ]]; then
+    if [[ ($TRAVIS_BRANCH == "master" || $TRAVIS_TAG != "") && $TRAVIS_PHP_VERSION == "7.4" ]]; then
       chmod +x ./.deploy/scripts/build.sh
       chmod +x ./.deploy/scripts/test.sh
       chmod +x ./.deploy/scripts/deploy.sh
@@ -31,7 +31,7 @@ before_install:
 
 install:
   - |
-    if [[ ($TRAVIS_BRANCH == "master" || $TRAVIS_BRANCH == "develop" || $TRAVIS_TAG != "") && $TRAVIS_PHP_VERSION == "7.4" ]]; then
+    if [[ ($TRAVIS_BRANCH == "master" || $TRAVIS_TAG != "") && $TRAVIS_PHP_VERSION == "7.4" ]]; then
       ./.deploy/scripts/build.sh
       ./.deploy/scripts/test.sh
     fi
