@@ -1,4 +1,8 @@
-# Next version
+# 0.6.1
+
++ Add `std error`
+
+## 0.6.0
 + Add Microbadger webhook
 
 ## 0.5.0
