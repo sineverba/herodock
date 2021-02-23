@@ -14,7 +14,9 @@ jobs:
       - image: cimg/base:2020.01
     steps:
       - checkout
-      - run: docker build registry.heroku.com/herodock/web --file ./.deploy/app/Dockerfile "."
+      - run: |
+          docker build registry.heroku.com/herodock/web 
+          --file ./.deploy/app/Dockerfile "."
 
 workflows:
   version: 2
