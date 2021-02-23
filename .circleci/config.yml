@@ -16,9 +16,10 @@ jobs:
       - run: |
           docker build --tag registry.heroku.com/herodock/web \
           --file ./.deploy/app/Dockerfile "."
-      - run: docker save -o ~/herodock.tar registry.heroku.com/herodock/web
+      - run: mkdir -p ~/docker
+      - run: docker save -o ~/docker/herodock.tar registry.heroku.com/herodock/web
       - persist_to_workspace:
-          root: ~
+          root: ~/docker
           paths:
             - .
 
