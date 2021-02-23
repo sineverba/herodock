@@ -2,10 +2,11 @@ version: 2.1
 jobs:
   test-unit:
     docker:
-      - image: sineverba/php8xc:8.0.2
+      #- image: sineverba/php8xc:8.0.2
+      - cimg/base:2020.01
 
     steps:
-      - run: echo 'IMAGE_ID=$(docker inspect sineverba/php8xc:8.0.2 --format={{.Id}})' >> $BASH_ENV
+      - run: echo 'IMAGE_ID=$(docker inspect cimg/base:2020.01 --format={{.Id}})' >> $BASH_ENV
       - run: source $BASH_ENV
       - run: echo $IMAGE_ID
       #- checkout
