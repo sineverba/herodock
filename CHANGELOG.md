@@ -1,4 +1,7 @@
-# 0.6.1
+# Next version
++ Remove Travis and introduce Circle CI
+
+## 0.6.1
 
 + Add `std error`
 
