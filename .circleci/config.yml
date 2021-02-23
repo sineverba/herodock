@@ -49,8 +49,8 @@ jobs:
       - run: IMAGE_ID=$(docker inspect registry.heroku.com/herodock/web --format={{.Id}})
       - run: |
           PAYLOAD='{"updates": [{"type": "web", "docker_image": "'"$IMAGE_ID"'"}]}'
-      - run: echo IMAGE_ID
-      - run: echo PAYLOAD
+      - run: echo $IMAGE_ID
+      - run: echo $PAYLOAD
       - run: |
           curl -n -X PATCH https://api.heroku.com/apps/herodock/formation \
           -d "${PAYLOAD}" \
