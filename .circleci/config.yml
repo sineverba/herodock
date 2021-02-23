@@ -31,6 +31,12 @@ jobs:
       - run: docker load -i /tmp/workspace/herodock.tar
       - run: docker run -d --name herodock -e "PORT=9876" -p 9876:9876 registry.heroku.com/herodock/web
       - run: docker exec -it herodock php -i | grep "PHP Version => 8.0.2"
+      - run: mkdir -p ~/docker
+      - run: docker save -o ~/docker/herodock.tar registry.heroku.com/herodock/web
+      - persist_to_workspace:
+          root: ~/docker
+          paths:
+            - .
       
 
 workflows:
