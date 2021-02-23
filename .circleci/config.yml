@@ -10,8 +10,7 @@ jobs:
       - run: vendor/bin/phpunit
 
   build:
-    docker:
-      - image: cimg/base:2020.01
+    machine: true
     steps:
       - checkout
       - run: |
