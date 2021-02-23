@@ -16,8 +16,8 @@ jobs:
       - run: |
           docker build --tag registry.heroku.com/herodock/web \
           --file ./.deploy/app/Dockerfile "."
-      - docker run -d --name herodock -e "PORT=9876" -p 9876:9876 registry.heroku.com/herodock/web
-      - docker exec -it herodock php -i | grep "PHP Version => 8.0.2"
+      - run: docker run -d --name herodock -e "PORT=9876" -p 9876:9876 registry.heroku.com/herodock/web
+      - run: docker exec -it herodock php -i | grep "PHP Version => 8.0.2"
       
 
 workflows:
