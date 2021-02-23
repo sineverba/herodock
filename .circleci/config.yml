@@ -37,6 +37,22 @@ jobs:
           root: ~/docker
           paths:
             - .
+
+  deploy:
+    machine: true
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run: docker load -i /tmp/workspace/herodock.tar
+      - run: docker login -u _ -p $HEROKU_API_KEY registry.heroku.com
+      - run: docker push registry.heroku.com/herodock/web
+      - run: IMAGE_ID=$(docker inspect registry.heroku.com/herodock/web --format={{.Id}})
+      - run: |
+          curl -n -X PATCH https://api.heroku.com/apps/herodock/formation \
+          -d "${PAYLOAD}" \
+          -H "Content-Type: application/json" \
+          -H "Accept: application/vnd.heroku+json; version=3.docker-releases" \
+          -H "Authorization: Bearer ${HEROKU_API_KEY}";
       
 
 workflows:
@@ -48,3 +64,8 @@ workflows:
       - test-docker:
           requires:
             - build
+      - deploy:
+          context:
+            - HEROKU
+          requires:
+            - test-docker
