@@ -2,6 +2,7 @@
 + Remove Travis and introduce Circle CI
 + Bump dependencies for PHP8
 + Add build step
++ Add Docker tests
 
 ## 0.6.1
 
