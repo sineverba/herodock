@@ -1,5 +1,6 @@
 # Next version
 + Remove Travis and introduce Circle CI
++ Bump dependencies for PHP8
 
 ## 0.6.1
 
