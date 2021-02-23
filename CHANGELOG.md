@@ -3,6 +3,7 @@
 + Bump dependencies for PHP8
 + Add build step
 + Add Docker tests
++ Add workspace
 
 ## 0.6.1
 
