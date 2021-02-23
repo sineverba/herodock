@@ -9,8 +9,17 @@ jobs:
       - run: composer install
       - run: vendor/bin/phpunit
 
+  build:
+    machine: true
+    steps:
+      - checkout
+      - run: |
+          docker build --tag registry.heroku.com/herodock/web \
+          --file ./.deploy/app/Dockerfile "."
+
 workflows:
   version: 2
   build-deploy:
     jobs:
       - test-unit
+      - build
