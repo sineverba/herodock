@@ -11,7 +11,7 @@ jobs:
 
   build:
     docker:
-      - image: sineverba/php8xc:8.0.2
+      - image: cimg/base:2020.01
     steps:
       - checkout
       - run: |
