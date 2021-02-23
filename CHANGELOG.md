@@ -4,6 +4,7 @@
 + Add build step
 + Add Docker tests
 + Add workspace
++ Add deploy
 
 ## 0.6.1
 
