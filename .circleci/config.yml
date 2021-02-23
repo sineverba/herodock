@@ -12,15 +12,15 @@ jobs:
   build:
     machine: true
     steps:
-      - persist_to_workspace:
-          root: /tmp
-          paths:
-            - docker
       - checkout
       - run: |
           docker build --tag registry.heroku.com/herodock/web \
           --file ./.deploy/app/Dockerfile "."
       - run: docker save -o /tmp/docker/herodock.tar registry.heroku.com/herodock/web
+      - persist_to_workspace:
+          root: /tmp
+          paths:
+            - docker
 
   test-docker:
     machine: true
