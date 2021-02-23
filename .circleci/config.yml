@@ -9,8 +9,18 @@ jobs:
       - run: composer install
       - run: vendor/bin/phpunit
 
+  build:
+    docker:
+      - image: sineverba/php8xc:8.0.2
+    steps:
+      - checkout
+      - run: |
+          docker build registry.heroku.com/herodock/web \
+          --file ./.deploy/app/Dockerfile "."
+
 workflows:
   version: 2
   build-deploy:
     jobs:
       - test-unit
+      - build

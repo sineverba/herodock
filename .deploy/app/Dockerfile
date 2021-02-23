@@ -1,9 +1,9 @@
 ##########################
 ##       SETUP          ##
 ##########################
-FROM php:7.4-cli-alpine as builder
+FROM php:8.0.2-cli-alpine3.13 as builder
 
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.0.9 /usr/bin/composer /usr/bin/composer
 
 RUN mkdir -p /usr/src/app
 
@@ -16,7 +16,7 @@ RUN composer install --no-dev
 ##########################
 ##       TEST           ##
 ##########################
-FROM php:7.4-cli-alpine as test
+FROM php:8.0.2-cli-alpine3.13 as test
 
 RUN mkdir -p /usr/src/app
 
@@ -32,17 +32,7 @@ RUN vendor/bin/phpunit
 ##########################
 ##       DEPLOY         ##
 ##########################
-FROM php:7-apache as deploy
-
-ARG VCS_REF
-ARG BUILD_DATE
-
-LABEL org.label-schema.vcs-ref=$VCS_REF \
-      org.label-schema.vcs-url="https://github.com/sineverba/herodock" \
-      org.label-schema.build-date=$BUILD_DATE
-
-
-#RUN docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable mysqli pdo pdo_mysql
+FROM php:8.0.2-apache as deploy
 
 COPY .deploy/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY .deploy/scripts/start-apache /usr/local/bin
