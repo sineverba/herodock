@@ -5,9 +5,12 @@ jobs:
       - image: sineverba/php8xc:8.0.2
 
     steps:
-      - checkout
-      - run: composer install
-      - run: vendor/bin/phpunit
+      - run: echo 'IMAGE_ID=$(docker inspect sineverba/php8xc:8.0.2 --format={{.Id}})' >> $BASH_ENV
+      - run: source $BASH_ENV
+      - run: echo $IMAGE_ID
+      #- checkout
+      #- run: composer install
+      #- run: vendor/bin/phpunit
 
   build:
     machine: true
@@ -68,12 +71,12 @@ workflows:
   build-deploy:
     jobs:
       - test-unit
-      - build
-      - test-docker:
-          requires:
-            - build
-      - deploy:
-          context:
-            - HEROKU
-          requires:
-            - test-docker
+      #- build
+      #- test-docker:
+      #    requires:
+      #      - build
+      #- deploy:
+      #    context:
+      #      - HEROKU
+      #    requires:
+      #      - test-docker
