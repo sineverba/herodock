@@ -1,11 +1,10 @@
 Heroku test
 ===========
 
-Test on Heroku with Travis auto deploy
+Test on Heroku with Circle CI auto deploy
 
 | CI / CD   | Status |
 | --------- | ------ |
-| Travis CI | [![Build Status](https://travis-ci.com/sineverba/herodock.svg?branch=master)](https://travis-ci.com/sineverba/herodock) |
 | Docker    | [![](https://images.microbadger.com/badges/image/sineverba/herodock.svg)](https://microbadger.com/images/sineverba/herodock "Get your own image badge on microbadger.com")
 
 
@@ -13,7 +12,7 @@ Test on Heroku with Travis auto deploy
 
 ``` shell
 $ docker build --tag herodock --file ./.deploy/app/Dockerfile "."
-$ docker run -d --name herodock -e APP_KEY=base64:x2SHH01+2R+vwv09YcrvXqdFJ+bbqgT9gW4njcYLjDE= -e "PORT=9876" -p 9876:9876 herodock
+$ docker run -d --name herodock -e "PORT=9876" -p 9876:9876 herodock
 $ docker exec -it herodock php -i | grep "PHP Version => 7.4.5"
 $ docker container stop herodock
 $ docker container rm herodock
