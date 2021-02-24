@@ -1,15 +1,6 @@
 version: 2.1
 jobs:
 
-  test-config-var:
-    machine: true
-    environment:
-      TAG: << pipeline.git.tag >>
-    steps:
-      - run: echo "Tag used was ${TAG}"
-      - run: curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
-      - run: heroku config:set TAG=${TAG} -a herodock
-
   test-unit:
     docker:
       - image: sineverba/php8xc:8.0.2
@@ -50,6 +41,8 @@ jobs:
 
   deploy:
     machine: true
+    environment:
+      TAG: << pipeline.git.tag >>
     steps:
       - attach_workspace:
           at: /tmp/workspace
@@ -58,29 +51,27 @@ jobs:
       - run: docker push registry.heroku.com/herodock/web
       - run: curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
       - run: heroku container:release web -a herodock
+      - run: heroku config:set TAG=${TAG} -a herodock
       
 
 workflows:
   version: 2
   build-deploy:
     jobs:
-      - test-config-var:
+      - test-unit
+      - build:
           filters:
             # ignore any commit on any branch by default
             branches:
               ignore: /.*/
             # only act on version tags
             tags:
-              only: /.*/
+              only: /.*/  
+      - test-docker:
+          requires:
+            - build
+      - deploy:
           context:
             - HEROKU
-      #- test-unit
-      #- build
-      #- test-docker:
-      #    requires:
-      #      - build
-      #- deploy:
-      #    context:
-      #      - HEROKU
-      #    requires:
-      #      - test-docker
+          requires:
+            - test-docker
