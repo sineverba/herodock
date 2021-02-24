@@ -66,6 +66,10 @@ workflows:
     jobs:
       - test-config-var:
           filters:
+            # ignore any commit on any branch by default
+            branches:
+              ignore: /.*/
+            # only act on version tags
             tags:
               only: /.*/
           context:
