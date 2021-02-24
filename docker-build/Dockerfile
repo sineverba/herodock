@@ -34,8 +34,8 @@ RUN vendor/bin/phpunit
 ##########################
 FROM php:8.0.2-apache as deploy
 
-COPY .deploy/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
-COPY .deploy/scripts/start-apache /usr/local/bin
+COPY docker-build/000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY docker-build/start-apache /usr/local/bin
 RUN a2enmod rewrite
 
 # Copy application source

@@ -8,6 +8,7 @@
 + Add tagging
 + Clean Semaphore Workflow
 + Fix Semaphore workflow
++ Clean project
 
 ## 0.6.1
 

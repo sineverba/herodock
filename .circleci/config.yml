@@ -16,7 +16,7 @@ jobs:
       - checkout
       - run: |
           docker build --tag registry.heroku.com/herodock/web \
-          --file ./.deploy/app/Dockerfile "."
+          --file ./docker-build/Dockerfile "."
       - run: mkdir -p ~/docker
       - run: docker save -o ~/docker/herodock.tar registry.heroku.com/herodock/web
       - persist_to_workspace:
