@@ -1,5 +1,15 @@
 version: 2.1
 jobs:
+
+  test-config-var:
+    machine: true
+    environment:
+      TAG: << pipeline.git.tag >>
+    steps:
+      - run: echo "Tag used was ${TAG}"
+      - run: curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+      - run: heroku config:set TAG=${TAG} -a herodock
+
   test-unit:
     docker:
       - image: sineverba/php8xc:8.0.2
@@ -46,32 +56,31 @@ jobs:
       - run: docker load -i /tmp/workspace/herodock.tar
       - run: docker login -u _ -p $HEROKU_API_KEY registry.heroku.com
       - run: docker push registry.heroku.com/herodock/web
-      - run: curl https://cli-assets.heroku.com/install-ubuntu.sh | sh;
+      - run: curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
       - run: heroku container:release web -a herodock
-      #- run: echo 'IMAGE_ID=$(docker inspect registry.heroku.com/herodock/web --format={{.Id}})' >> $BASH_ENV
-      #- run: |
-      #    echo PAYLOAD='{"updates": [{"type": "web", "docker_image": "'"$IMAGE_ID"'"}]}' >> $BASH_ENV
-      #- run: source $BASH_ENV
-      #- run: echo $PAYLOAD
-      #- run: |
-      #    curl -n -X PATCH https://api.heroku.com/apps/herodock/formation \
-      #    -d "$PAYLOAD" \
-      #    -H "Content-Type: application/json" \
-      #    -H "Accept: application/vnd.heroku+json; version=3.docker-releases" \
-      #    -H "Authorization: Bearer $HEROKU_API_KEY";
       
 
 workflows:
   version: 2
   build-deploy:
     jobs:
-      - test-unit
-      - build
-      - test-docker:
-          requires:
-            - build
-      - deploy:
+      - test-config-var:
+          filters:
+            # ignore any commit on any branch by default
+            branches:
+              ignore: /.*/
+            # only act on version tags
+            tags:
+              only: /.*/
           context:
             - HEROKU
-          requires:
-            - test-docker
+      #- test-unit
+      #- build
+      #- test-docker:
+      #    requires:
+      #      - build
+      #- deploy:
+      #    context:
+      #      - HEROKU
+      #    requires:
+      #      - test-docker
