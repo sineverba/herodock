@@ -65,6 +65,9 @@ workflows:
   build-deploy:
     jobs:
       - test-config-var:
+          filters:
+            tags:
+              only: /.*/
           context:
             - HEROKU
       #- test-unit
