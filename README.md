@@ -5,7 +5,7 @@ Test on Heroku with Circle CI auto deploy
 
 | CI / CD   | Status |
 | --------- | ------ |
-| Docker    | [![](https://images.microbadger.com/badges/image/sineverba/herodock.svg)](https://microbadger.com/images/sineverba/herodock "Get your own image badge on microbadger.com")
+| Circle CI | [![CircleCI](https://circleci.com/gh/sineverba/herodock.svg?style=svg)](https://circleci.com/gh/sineverba/herodock)
 
 
 ## How to build for test

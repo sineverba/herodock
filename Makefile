@@ -10,8 +10,6 @@ stop:
 
 test:
 		@docker run -it --rm herodock php -i | grep "PHP Version => 7.4.5"
-		@docker inspect -f {{.Config.Labels}} herodock:latest
-		@docker inspect -f {{.Config.Labels}} herodock:latest | grep ${VCS_REF}
 
 destroy:
 		docker container stop herodock

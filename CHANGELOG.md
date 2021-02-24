@@ -1,5 +1,14 @@
-# Next version
+# 0.7.0
 + Remove Travis and introduce Circle CI
++ Bump dependencies for PHP8
++ Add build step
++ Add Docker tests
++ Add workspace
++ Add deploy
++ Add tagging
++ Clean Semaphore Workflow
++ Fix Semaphore workflow
++ Clean project
 
 ## 0.6.1
 
