@@ -5,6 +5,7 @@
 + Add Docker tests
 + Add workspace
 + Add deploy
++ Add tagging
 
 ## 0.6.1
 
