@@ -2,6 +2,7 @@ version: 2.1
 jobs:
 
   test-config-var:
+    machine: true
     environment:
       TAG: << pipeline.git.tag >>
     steps:
