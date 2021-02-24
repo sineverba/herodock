@@ -7,6 +7,7 @@
 + Add deploy
 + Add tagging
 + Clean Semaphore Workflow
++ Fix Semaphore workflow
 
 ## 0.6.1
 
