@@ -1,0 +1,36 @@
+version: v1.0
+
+name: Build and test Pipeline
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+
+global_job_config:
+
+  env_vars:
+    - name: HEROKU_REGISTRY_IMAGE
+      value: registry.heroku.com/herodock/web
+    - name: HEROKU_APP_NAME
+      value: herodock
+
+blocks:
+  - name: 'Build and test'
+    skip:
+      when: "tag =~ '.*'"
+    task:
+      jobs:
+        - name: 'Build and test'
+          commands:
+            - checkout
+            - docker build --tag $HEROKU_REGISTRY_IMAGE --file ./docker-build/Dockerfile "."
+            - docker run -d --name herodock -e "PORT=9876" -p 9876:9876 $HEROKU_REGISTRY_IMAGE
+            - docker exec -it herodock php -i | grep "PHP Version => 8.0.2"
+      
+
+promotions:
+  - name: Publish
+    pipeline_file: publish.yml
+    auto_promote:
+      #when: "result = 'passed' and tag =~ '.*'"
+      when: "true"
