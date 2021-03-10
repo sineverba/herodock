@@ -17,7 +17,7 @@ blocks:
       jobs:
         - name: 'Publish to Docker Hub'
           commands:
-            - echo $DOCKER_TOKEN | docker login --username "$DOCKER_USERNAME" --password-stdin
+            - echo $DOCKERHUB_PASSWORD | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
             - checkout
             - docker build --tag herodock --file ./docker-build/Dockerfile "."
             - docker tag herodock:latest
