@@ -3,55 +3,71 @@ jobs:
 
   test-unit:
     docker:
-      - image: sineverba/php8xc:8.0.2
+      - image: cimg/base:2020.01
+    environment:
+      HEROKU_REGISTRY_IMAGE: registry.heroku.com/herodock/web
+      HEROKU_APP_NAME: herodock
 
     steps:
       - checkout
+      - setup_remote_docker
       - run: composer install
       - run: vendor/bin/phpunit
 
   build:
-    machine: true
+    docker:
+      - image: cimg/base:2020.01
+    environment:
+      HEROKU_REGISTRY_IMAGE: registry.heroku.com/herodock/web
+      HEROKU_APP_NAME: herodock
     steps:
       - checkout
-      - run: |
-          docker build --tag registry.heroku.com/herodock/web \
-          --file ./docker-build/Dockerfile "."
+      - setup_remote_docker
+      - run: docker build --tag $HEROKU_REGISTRY_IMAGE --file ./docker-build/Dockerfile "."
       - run: mkdir -p ~/docker
-      - run: docker save -o ~/docker/herodock.tar registry.heroku.com/herodock/web
+      - run: docker save -o ~/docker/$HEROKU_APP_NAME.tar $HEROKU_REGISTRY_IMAGE
       - persist_to_workspace:
           root: ~/docker
           paths:
             - .
 
   test-docker:
-    machine: true
+    docker:
+      - image: cimg/base:2020.01
+    environment:
+      HEROKU_REGISTRY_IMAGE: registry.heroku.com/herodock/web
+      HEROKU_APP_NAME: herodock
     steps:
       - attach_workspace:
           at: /tmp/workspace
-      - run: docker load -i /tmp/workspace/herodock.tar
-      - run: docker run -d --name herodock -e "PORT=9876" -p 9876:9876 registry.heroku.com/herodock/web
+      - setup_remote_docker
+      - run: docker load -i /tmp/workspace/$HEROKU_APP_NAME.tar
+      - run: docker run -d --name herodock -e "PORT=9876" -p 9876:9876 $HEROKU_REGISTRY_IMAGE
       - run: docker exec -it herodock php -i | grep "PHP Version => 8.0.2"
       - run: mkdir -p ~/docker
-      - run: docker save -o ~/docker/herodock.tar registry.heroku.com/herodock/web
+      - run: docker save -o ~/docker/$HEROKU_APP_NAME.tar $HEROKU_REGISTRY_IMAGE
       - persist_to_workspace:
           root: ~/docker
           paths:
             - .
 
   deploy:
-    machine: true
+    docker:
+      - image: cimg/base:2020.01
     environment:
+      HEROKU_REGISTRY_IMAGE: registry.heroku.com/herodock/web
+      HEROKU_APP_NAME: herodock
       TAG: << pipeline.git.tag >>
     steps:
       - attach_workspace:
           at: /tmp/workspace
-      - run: docker load -i /tmp/workspace/herodock.tar
+      - setup_remote_docker
+      - run: docker load -i /tmp/workspace/$HEROKU_APP_NAME.tar
       - run: docker login -u _ -p $HEROKU_API_KEY registry.heroku.com
-      - run: docker push registry.heroku.com/herodock/web
+      - run: docker push $HEROKU_REGISTRY_IMAGE
       - run: curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
-      - run: heroku container:release web -a herodock
-      - run: heroku config:set TAG=${TAG} -a herodock
+      - run: heroku container:release web -a $HEROKU_APP_NAME
+      - run: heroku config:set TAG=${TAG} -a $HEROKU_APP_NAME
       
 
 workflows:

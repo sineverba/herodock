@@ -1,0 +1,25 @@
+version: v1.0
+
+name: Publish Pipeline
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+
+global_job_config:
+
+  secrets:
+    - name: DOCKERHUB
+
+blocks:
+  - name: 'Publish'
+    task:
+      jobs:
+        - name: 'Publish to Docker Hub'
+          commands:
+            - echo $DOCKER_TOKEN | docker login --username "$DOCKER_USERNAME" --password-stdin
+            - checkout
+            - docker build --tag herodock --file ./docker-build/Dockerfile "."
+            - docker tag herodock:latest
+            - docker tag herodock:test
+            - docker push

@@ -34,6 +34,12 @@ RUN vendor/bin/phpunit
 ##########################
 FROM php:8.0.2-apache as deploy
 
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+
+RUN docker-php-ext-install opcache && docker-php-ext-enable opcache
+
+COPY docker-build/php-config/10-opcache.ini $PHP_INI_DIR/conf.d/
+
 COPY docker-build/000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY docker-build/start-apache /usr/local/bin
 RUN a2enmod rewrite
