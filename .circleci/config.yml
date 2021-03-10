@@ -3,10 +3,7 @@ jobs:
 
   test-unit:
     docker:
-      - image: cimg/base:2020.01
-    environment:
-      HEROKU_REGISTRY_IMAGE: registry.heroku.com/herodock/web
-      HEROKU_APP_NAME: herodock
+      - image: circleci/php:8.0.3-cli-buster
 
     steps:
       - checkout

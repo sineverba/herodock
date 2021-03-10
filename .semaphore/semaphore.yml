@@ -8,18 +8,11 @@ agent:
 
 global_job_config:
 
-  prologue:
-    commands:
-      - echo $DOCKER_TOKEN | docker login --username "$DOCKER_USERNAME" --password-stdin
-
   env_vars:
     - name: HEROKU_REGISTRY_IMAGE
       value: registry.heroku.com/herodock/web
     - name: HEROKU_APP_NAME
       value: herodock
-
-  secrets:
-    - name: DOCKERHUB
 
 blocks:
   - name: 'Build and test'
