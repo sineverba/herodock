@@ -40,7 +40,7 @@ jobs:
       - setup_remote_docker
       - run: docker load -i /tmp/workspace/$HEROKU_APP_NAME.tar
       - run: docker run -d --name herodock -e "PORT=9876" -p 9876:9876 $HEROKU_REGISTRY_IMAGE
-      - run: docker exec -it herodock php -i | grep "PHP Version => 8.0.2"
+      - run: docker exec -it herodock php -i | grep "PHP Version => 8.0.3"
       - run: mkdir -p ~/docker
       - run: docker save -o ~/docker/$HEROKU_APP_NAME.tar $HEROKU_REGISTRY_IMAGE
       - persist_to_workspace:
