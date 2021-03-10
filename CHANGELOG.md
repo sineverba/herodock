@@ -2,6 +2,7 @@
 + Refactor Circle CI
 + Add Semaphore
 + Fix CI
++ Bump to PHP 8.0.3
 
 ## 0.7.0
 + Remove Travis and introduce Circle CI

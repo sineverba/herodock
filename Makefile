@@ -9,7 +9,7 @@ stop:
 		docker container rm herodock
 
 test:
-		@docker run -it --rm herodock php -i | grep "PHP Version => 8.0.2"
+		@docker run -it --rm herodock php -i | grep "PHP Version => 8.0.3"
 
 destroy:
 		docker container stop herodock

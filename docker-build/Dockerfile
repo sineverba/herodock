@@ -1,7 +1,7 @@
 ##########################
 ##       SETUP          ##
 ##########################
-FROM php:8.0.2-cli-alpine3.13 as builder
+FROM php:8.0.3-cli-alpine3.13 as builder
 
 COPY --from=composer:2.0.9 /usr/bin/composer /usr/bin/composer
 
@@ -16,7 +16,7 @@ RUN composer install --no-dev
 ##########################
 ##       TEST           ##
 ##########################
-FROM php:8.0.2-cli-alpine3.13 as test
+FROM php:8.0.3-cli-alpine3.13 as test
 
 RUN mkdir -p /usr/src/app
 
@@ -32,7 +32,7 @@ RUN vendor/bin/phpunit
 ##########################
 ##       DEPLOY         ##
 ##########################
-FROM php:8.0.2-apache as deploy
+FROM php:8.0.3-apache as deploy
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
