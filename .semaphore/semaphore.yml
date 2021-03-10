@@ -32,5 +32,4 @@ promotions:
   - name: Publish
     pipeline_file: publish.yml
     auto_promote:
-      #when: "result = 'passed' and tag =~ '.*'"
-      when: "true"
+      when: "result = 'passed' and tag =~ '.*'"

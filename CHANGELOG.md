@@ -1,6 +1,7 @@
 # Next version
 + Refactor Circle CI
 + Add Semaphore
++ Fix CI
 
 ## 0.7.0
 + Remove Travis and introduce Circle CI
