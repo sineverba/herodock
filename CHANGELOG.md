@@ -1,4 +1,4 @@
-# Next version
+# 0.8.0
 + Refactor Circle CI
 + Add Semaphore
 + Fix CI

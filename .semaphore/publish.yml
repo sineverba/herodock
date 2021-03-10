@@ -21,6 +21,6 @@ blocks:
             - checkout
             - docker build --tag sineverba/herodock --file ./docker-build/Dockerfile "."
             - docker tag sineverba/herodock sineverba/herodock:latest
-            - docker tag sineverba/herodock sineverba/herodock:test
+            - docker tag sineverba/herodock sineverba/herodock:$SEMAPHORE_GIT_TAG_NAME
             - docker push sineverba/herodock:latest
-            - docker push sineverba/herodock:test
+            - docker push sineverba/herodock:$SEMAPHORE_GIT_TAG_NAME
