@@ -1,4 +1,10 @@
-# 0.7.0
+# 0.8.0
++ Refactor Circle CI
++ Add Semaphore
++ Fix CI
++ Bump to PHP 8.0.3
+
+## 0.7.0
 + Remove Travis and introduce Circle CI
 + Bump dependencies for PHP8
 + Add build step
