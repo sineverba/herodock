@@ -22,4 +22,5 @@ blocks:
             - docker build --tag herodock --file ./docker-build/Dockerfile "."
             - docker tag herodock:latest
             - docker tag herodock:test
-            - docker push
+            - docker push herodock:latest
+            - docker push herodock:test
