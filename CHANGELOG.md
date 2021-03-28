@@ -1,4 +1,7 @@
-# 0.8.0
+# Next version
++ Move from Apache to Nginx
+
+## 0.8.0
 + Refactor Circle CI
 + Add Semaphore
 + Fix CI

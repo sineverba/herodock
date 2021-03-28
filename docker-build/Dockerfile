@@ -32,20 +32,21 @@ RUN vendor/bin/phpunit
 ##########################
 ##       DEPLOY         ##
 ##########################
-FROM php:8.0.3-apache as deploy
+FROM php:8.0.3-fpm as deploy
+
+RUN apt-get update -y && apt-get upgrade -y && apt-get install -y nginx
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 RUN docker-php-ext-install opcache && docker-php-ext-enable opcache
 
 COPY docker-build/php-config/10-opcache.ini $PHP_INI_DIR/conf.d/
-
-COPY docker-build/000-default.conf /etc/apache2/sites-available/000-default.conf
-COPY docker-build/start-apache /usr/local/bin
-RUN a2enmod rewrite
+COPY docker-build/default.conf /etc/nginx/sites-enabled/default
+COPY docker-build/entrypoint.sh /etc/entrypoint.sh
+RUN chmod +x /etc/entrypoint.sh
 
 # Copy application source
 COPY --from=builder /usr/src/app /var/www
 RUN chown -R www-data:www-data /var/www
 
-CMD ["start-apache"]
+CMD ["/etc/entrypoint.sh"]
