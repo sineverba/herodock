@@ -1,4 +1,4 @@
-# Next version
+# 1.0.0
 + Move from Apache to Nginx
 
 ## 0.8.0
